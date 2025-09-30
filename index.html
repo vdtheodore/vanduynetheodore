@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Theodore Van Duyne — Engineering Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f14; --panel:#0f161b; --muted:#94a3b8; --accent:#6b8b88; --glass:rgba(255,255,255,0.04);
+      --max-w:1100px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,system-ui,Segoe UI,Arial;background:linear-gradient(180deg,#05060a 0%, #0b1016 70%);color:#e7eef6;margin:0;line-height:1.5}
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 8px; border: 2px solid transparent; background-clip: padding-box; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.10); }
+
+    * { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.06) transparent; }
+
+    header{position:sticky;top:0;z-index:50;background:rgba(11,13,16,0.78);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.03)}
+    .container{max-width:var(--max-w);margin:0 auto;padding:20px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#55627a);display:flex;align-items:center;justify-content:center;font-weight:700;color:#071018;font-size:1.05rem;box-shadow:0 4px 14px rgba(7,10,14,0.6)}
+    .title{display:flex;flex-direction:column}
+    .name{font-weight:700;margin:0}
+    .sub{font-size:0.85rem;color:var(--muted);margin-top:2px}
+
+    nav{display:flex;gap:8px}
+    .nav-btn{background:var(--panel);padding:8px 12px;border-radius:10px;color:inherit;text-decoration:none;font-weight:600;border:1px solid rgba(255,255,255,0.02)}
+    .nav-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+
+    main{max-width:var(--max-w);margin:34px auto;padding:20px}
+
+    .hero{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .lead{color:var(--muted);margin-top:8px}
+
+    h2{margin:0 0 12px 0}
+    .meta{color:var(--muted);font-size:0.95rem}
+
+    .projects{margin-top:24px;display:grid;gap:18px}
+    .project{display:grid;grid-template-columns:1fr 260px;gap:16px;padding:16px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02)}
+    .project h3{margin:0}
+    .table-wrap{overflow:auto;border-radius:8px}
+    
+    th,td{padding:8px;border:1px solid rgba(255,255,255,0.03);text-align:left;word-wrap:break-word}
+
+    .skills{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .skill{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02);width:110px;position:relative}
+    .skill img{width:48px;height:48px;object-fit:contain}
+    .skill small{color:var(--muted);font-weight:600}
+
+    .skill .tooltip{
+      position:absolute;
+      bottom:calc(100% + 10px);
+      left:50%;
+      transform:translateX(-50%) translateY(6px);
+      opacity:0;
+      visibility:hidden;
+      transition:opacity .18s ease, transform .18s ease;
+      background:var(--panel);
+      padding:12px;
+      border-radius:10px;
+      width:240px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow:0 6px 20px rgba(2,6,10,0.6);
+      color:#e7eef6;
+      font-size:0.86rem;
+      text-align:left;
+      z-index:30;
+    }
+    .skill:hover .tooltip, .skill:focus-within .tooltip {
+      opacity:1;
+      visibility:visible;
+      transform:translateX(-50%) translateY(0);
+    }
+    .skill .tooltip::after{
+      content:'';
+      position:absolute;
+      top:100%;
+      left:50%;
+      transform:translateX(-50%);
+      border-width:8px;
+      border-style:solid;
+      border-color: var(--panel) transparent transparent transparent;
+    }
+    .tooltip strong{display:block;margin-bottom:6px;font-weight:700}
+    .tooltip ul{margin:0;padding-left:18px}
+    .tooltip li{margin-bottom:4px;color:var(--muted);font-size:0.86rem}
+
+    .contact-card{padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02)}
+
+    footer{max-width:var(--max-w);margin:28px auto 60px auto;padding:14px;color:var(--muted);text-align:center}
+
+    @media (max-width:940px){
+      .hero{grid-template-columns:1fr}
+      .project{grid-template-columns:1fr}
+      nav{gap:6px}
+      .skills{justify-content:flex-start}
+      .skill{width:100px}
+      .skill .tooltip{left:50%; transform:translateX(-50%); width:200px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="top">
+        <div class="brand">
+          <div class="title">
+            <div class="name">Theodore Van Duyne</div>
+            <div class="sub">Little Miami High School • Class of 2028 • Aspiring microprocessor engineer</div>
+          </div>
+        </div>
+        <nav>
+          <a class="nav-btn" href="#about">About</a>
+          <a class="nav-btn" href="#projects">Projects</a>
+          <a class="nav-btn" href="#skills">Skills</a>
+          <a class="nav-btn" href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="about" class="container hero">
+      <div class="panel">
+        <h2>About</h2>
+        <p class="lead">Hi, I’m Theodore. This portfolio shows my engineering, coding, and 3-D modeling work, starting with a carnival themed golf game project I built in class.</p>
+        <p class="meta" style="margin-top:12px">I'm focused on electronic engineering and I aspire to be a microprocessor engineer. I enjoy solving problems with math and code, and I like building and testing physical circuits and embedded systems.</p>
+
+        <h4 style="margin-top:14px">What to expect</h4>
+        <p class="meta">You will find well-documented projects that include the problem statement, the steps I took to design and test, and honest reflections on what worked and what I would do differently the next time. I will keep adding new work as I learn more.</p>
+      </div>
+
+      <aside class="panel contact-card">
+        <h3 style="margin-top:0">Contact</h3>
+        <p class="meta">Email: <a href="mailto:vanduynetheodore@gmail.com">vanduynetheodore@gmail.com</a></p>
+        <p style="margin-top:12px;color:var(--muted)">Want to collaborate or see more details? Email me and include what you want to see.</p>
+      </aside>
+    </section>
+
+    <section id="projects" class="container projects">
+      <div class="project">
+        <div>
+          <h3>Carnival Golf, Windmill Challenge</h3>
+          <p class="meta">Class project. Our team brainstormed three game ideas: an Angry Birds style cork launcher, a Pop-a-Shot style target, and a windmill mini-golf. We picked the windmill game because it was fun, simple to build, and reliable once tuned.</p>
+
+          <h4 style="margin-top:12px">Problem statement</h4>
+          <p>Design a carnival game that fits the booth size, keeps players safe, and gives a fair chance to win. The game had to include a target with a hole that rewards a top prize when a player gets the ball on par, and smaller prizes for scores above par. We used a cork launcher as our power source.</p>
+
+          <h4 style="margin-top:12px">Design process</h4>
+          <ol>
+            <li><strong>Ask:</strong> We looked at the booth limits, what size the target board could be, and how consistent the cork launcher was when players used it.</li>
+            <li><strong>Imagine:</strong> Everyone sketched ideas. We compared a cork-based Angry Birds setup, a Pop-a-Shot rebound target, and a windmill-style hole like mini-golf.</li>
+            <li><strong>Plan:</strong> We chose the windmill. We sketched the layout for the booth and the target board, and we estimated where the launcher would be placed and how big the hole should be to give the right difficulty.</li>
+            <li><strong>Create:</strong> We built a prototype out of poster board and cardboard. We tested launches and watched how the ball moved through the windmill blades and landed in the hole or scoring zones.</li>
+            <li><strong>Improve:</strong> The prototype showed two main problems: the base was not stable enough, and the hole needed smoothing so the ball would not jam. We reinforced the base with extra bracing and adjusted the hole edges to improve reliability.</li>
+          </ol>
+
+          <h4 style="margin-top:12px">Rules and scoring</h4>
+          <p>Players get up to three attempts per play. If a player gets the ball through the windmill hole on par, they win the largest prize. Any score above par gets a smaller prize. The attendant retrieves balls that fall through the hole.</p>
+
+          <h4 style="margin-top:12px">Reflection</h4>
+          <p>What worked: the windmill design was engaging and easy for players to understand, and small changes to the base increased reliability a lot. What to improve: collect more test data to fine tune hole size and position, and experiment with blade shape so the timing of openings is more forgiving.</p>
+        </div>
+
+        <aside>
+          <div class="panel" style="margin-bottom:12px">
+            <h4 style="margin:0 0 8px 0">Decision matrix</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th style="width:45%">Criteria</th><th style="width:18%">Windmill</th><th style="width:18%">Angry Birds</th><th style="width:18%">Pop-a-Shot</th></tr></thead>
+                <tbody>
+                  <tr><td>Player fun</td><td>8</td><td>7</td><td>6</td></tr>
+                  <tr><td>Build difficulty</td><td>6</td><td>7</td><td>5</td></tr>
+                  <tr><td>Reliability in tests</td><td>7</td><td>5</td><td>6</td></tr>
+                  <tr><td>Ease of retrieving balls</td><td>9</td><td>6</td><td>7</td></tr>
+                  <tr><td><strong>Total</strong></td><td><strong>30</strong></td><td><strong>25</strong></td><td><strong>24</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel" style="text-align:left">
+            <h4 style="margin-top:0">Prototype notes</h4>
+            <p class="meta">No photos were taken. Prototype materials included poster board, cardboard, and tape. The cork launcher gave consistent energy once we adjusted the stopper height. Reinforcing the base removed wobble and made the game feel solid for players.</p>
+          </div>
+        </aside>
+      </div>
+
+    </section>
+
+    <section id="skills" class="container" style="margin-top:30px">
+      <div class="panel">
+        <h3>Technical skills</h3>
+        <p class="meta">Languages and tools I use.</p>
+        <div class="skills" style="margin-top:12px">
+          <div class="skill" tabindex="0">
+            <img src="assets/python.png" alt="Python icon" onerror="this.style.opacity=0.25">
+            <small>Python</small>
+            <div class="tooltip">
+              <strong>Skill: Advanced (85%)</strong>
+              <ul>
+                <li>Built automation tools and data processing scripts</li>
+                <li>Used numpy/pandas for small analysis tasks</li>
+                <li>Created games and tools with pygame</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="skill" tabindex="0">
+            <img src="assets/html.png" alt="HTML icon" onerror="this.style.opacity=0.25">
+            <small>HTML &amp; CSS</small>
+            <div class="tooltip">
+              <strong>Skill: Proficient (80%)</strong>
+              <ul>
+                <li>Responsive layouts and accessible markup</li>
+                <li>Built this portfolio and GitHub Pages sites</li>
+                <li>Experience with CSS grids and basic animations</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="skill" tabindex="0">
+            <img src="assets/lua.png" alt="Lua icon" onerror="this.style.opacity=0.25">
+            <small>Lua</small>
+            <div class="tooltip">
+              <strong>Skill: Intermediate (70%)</strong>
+              <ul>
+                <li>Game scripting and gameplay logic</li>
+                <li>Built plugins and event scripts</li>
+                <li>Optimized loops and state machines</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="skill" tabindex="0">
+            <img src="assets/cpp.png" alt="C++ icon" onerror="this.style.opacity=0.25">
+            <small>C++</small>
+            <div class="tooltip">
+              <strong>Skill: Intermediate (68%)</strong>
+              <ul>
+                <li>Simple engines</li>
+                <li>Embedded firmware and microcontroller code</li>
+                <li>Comfortable with pointers and basic STL usage</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="skill" tabindex="0">
+            <img src="assets/rust.png" alt="Rust icon" onerror="this.style.opacity=0.25">
+            <small>Rust</small>
+            <div class="tooltip">
+              <strong>Skill: Learning (60%)</strong>
+              <ul>
+                <li>Small CLI tools and systems experiments</li>
+                <li>Exploring ownership, lifetimes, and async</li>
+                <li>Interest in low level and embedded systems</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top:12px;color:var(--muted)">Level notes: I am currently learning more advanced topics in each language and plan to add sample code and project links here as I build more projects.</p>
+        <h4 style="margin-top:12px">Electronics and hardware</h4>
+        <ul class="meta">
+          <li>Circuit design and breadboarding</li>
+          <li>Microcontrollers and embedded systems (Arduino, AVR)</li>
+          <li>PCB prototyping and soldering</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact" class="container" style="margin-top:24px">
+      <div class="panel contact-card">
+        <h3 style="margin-top:0">Contact</h3>
+        <p class="meta">Email: <a href="mailto:vanduynetheodore@gmail.com">vanduynetheodore@gmail.com</a></p>
+        <p style="margin-top:10px;color:var(--muted)">I check this email regularly. If you want to see more details about any project, send me a message and tell me which project you are interested in.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year">2025</span> Theodore Van Duyne, Little Miami High School
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
